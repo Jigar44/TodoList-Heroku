@@ -5,11 +5,19 @@ const mongoose = require('mongoose')
 const _ = require('lodash')
 const date = require(__dirname + '/date.js')
 
+const cool = require('cool-ascii-faces');
+const path = require('path');
+const PORT = process.env.PORT || 5000;
+
 const app = express()
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}))
-app.use(express.static('public'))
+app.use(express.static(path.join(__dirname, 'public')))
+app.set('views', path.join(__dirname, 'views'))
+
+
+
 
 mongoose.connect('mongodb+srv://Jigar:My@pc111@democluster.uond2.mongodb.net/todolistDB', {useNewUrlParser: true, useUnifiedTopology: true})
 
@@ -159,11 +167,12 @@ app.post('/delete', function(req, res){
 //     workItems.push(item)
 //     res.redirect('/work')
 // })
-let port = process.env.PORT
-if(port === null || port === ""){
-    port = 3000
-}
+// let port = process.env.PORT
+// if(port === null || port === ""){
+//     port = 3000
+// }
 
-app.listen(port, function () { 
-    console.log('Server started on port 3000');
- })
+// app.listen(port, function () { 
+//     console.log('Server started on port 3000');
+//  })
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
